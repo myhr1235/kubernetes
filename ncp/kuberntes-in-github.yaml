@@ -1,0 +1,59 @@
+on:
+  push:
+    branches:
+      - local  ##
+      
+env:
+  PASSWORD: ${{secrets.HURAY_CONTAINER_REGISTRY_PASSWORD}}    ## PASSWORD github 설정 참고
+  USERNAME: ${{secrets.HURAY_CONTAINER_REGISTRY_USERNAME}}    ## USERNAME github 설정 참고
+  DEPLOY_PATH: /home/myhr123
+  REGISTRY: huray-nks-container-registry.kr.ncr.ntruss.com    ##registry 경로 변경
+  IMAGE_NAME: nks-image-test                                  ##image Name의 경우 알아서 변경
+  
+name: Build & Deploy to NCP Platform survey
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    outputs:
+      tags: ${{ steps.docker-meta.outputs.BUILD_ID }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 빌드 레지스트리에 로그인
+      - name: Build Registry Login
+        run: |
+          echo $PASSWORD| docker login $REGISTRY -u $USERNAME --password-stdin  
+        ## echo  부분 확인하여 변경
+      # 자바 설정
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          
+      # Gradle 명령어 권한 변경
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        
+      - name: Docker Image Meta
+        id: docker-meta
+        run: |
+          branch=${GITHUB_REF##*/}
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
+          
+      # gradlew 이미지 빌드
+      - name: Buildpack make docker image
+        run: |
+          ./gradlew bootBuildImage --imageName=$REGISTRY/$IMAGE_NAME:${{steps.docker-meta.outputs.BUILD_ID}}
+      # 이미지 PUSH
+      - name: Buildpack make docker image , push
+        run: |
+          docker push $REGISTRY/$IMAGE_NAME:${{steps.docker-meta.outputs.BUILD_ID}}
+          
+ 
