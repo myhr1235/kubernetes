@@ -17,7 +17,7 @@ spec:
         app: nks-test
     spec:
       containers:
-      - image: huray-nks-container-registry.kr.ncr.ntruss.com/nks-test:v1.0.0
+      - image: test-nks-container-registry.kr.ncr.ntruss.com/nks-test:v1.0.0
         name: nks-test:v1.0.0
         env:
         - name: SERVER_PORT ## env파일 생성시 source에 있는 환경 변수 확인 하여 생성
