@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 680723068970.dkr.ecr.us-east-2.amazonaws.com/emoldino-demo
+  repository: 680723068970.dkr.ecr.us-east-2.amazonaws.com/test-demo
   tag: 24bd0509c1d3a84947618aebdc2aa5053f52394e
   pullPolicy: IfNotPresent
 
@@ -48,7 +48,7 @@ ingress:
     alb.ingress.kubernetes.io/group-order: '3'
 
   hosts:
-    - host: demo.emoldino.com
+    - host: demo.test.com
       paths:
         - path: /
           pathType: Prefix
