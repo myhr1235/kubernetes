@@ -4,10 +4,10 @@ on:
       - local  ##
       
 env:
-  PASSWORD: ${{secrets.HURAY_CONTAINER_REGISTRY_PASSWORD}}    ## PASSWORD github 설정 참고
-  USERNAME: ${{secrets.HURAY_CONTAINER_REGISTRY_USERNAME}}    ## USERNAME github 설정 참고
+  PASSWORD: ${{secrets.TETST_CONTAINER_REGISTRY_PASSWORD}}    ## PASSWORD github 설정 참고
+  USERNAME: ${{secrets.TEST_CONTAINER_REGISTRY_USERNAME}}    ## USERNAME github 설정 참고
   DEPLOY_PATH: /home/myhr123
-  REGISTRY: huray-nks-container-registry.kr.ncr.ntruss.com    ##registry 경로 변경
+  REGISTRY: test-nks-container-registry.kr.ncr.ntruss.com    ##registry 경로 변경
   IMAGE_NAME: nks-image-test                                  ##image Name의 경우 알아서 변경
   
 name: Build & Deploy to NCP Platform survey
