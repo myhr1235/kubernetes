@@ -4,7 +4,7 @@ metadata:
   name: demo
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: emoldino=680723068970.dkr.ecr.us-east-2.amazonaws.com/emoldino-demo
+    argocd-image-updater.argoproj.io/image-list: test=680723068970.dkr.ecr.us-east-2.amazonaws.com/emoldino-demo
     argocd-image-updater.argoproj.io/emoldino.helm.image-tag: image.tag
     argocd-image-updater.argoproj.io/emoldino.update-strategy: latest
     argocd-image-updater.argoproj.io/emoldino.pull-secret: secret:argocd/aws-ecr-creds#creds
@@ -21,14 +21,14 @@ spec:
     helm:
       parameters:
         - name: image.repository
-          value: 680723068970.dkr.ecr.us-east-2.amazonaws.com/emoldino
+          value: 680723068970.dkr.ecr.us-east-2.amazonaws.com/test
           forceString: true
         - name: image.tag
           value: 24bd0509c1d3a84947618aebdc2aa5053f52394e
           forceString: true
       valueFiles:
         - ohio-demo-values.yaml
-    path: helm/emoldinochart
+    path: helm/testchart
     repoURL: https://github.com/myhr123/kubernetes.git
     targetRevision: HEAD
   syncPolicy:
