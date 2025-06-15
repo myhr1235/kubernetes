@@ -1,4 +1,4 @@
-# Default values for emoldinochart.
+
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -13,7 +13,7 @@ configs:
   configName: demo-application-properties
   volumeMountsVar:
     name: application-properties
-    mountPathVar: /emoldino/config 
+    mountPathVar: /test/config 
   restartPolicy: Always
     
 
@@ -35,7 +35,7 @@ service:
   nodePort: 30182
   targetPort: 80
   selector:
-    app: emoldino
+    app: nginx
 
 ingress:
   enabled: true
